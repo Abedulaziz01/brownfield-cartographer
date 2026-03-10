@@ -1,0 +1,12 @@
+# Create and open .gitignore
+touch .gitignore
+
+# Add content (you can use any text editor)
+echo "__pycache__/" >> .gitignore
+echo "*.pyc" >> .gitignore
+echo ".env" >> .gitignore
+echo ".cartography/" >> .gitignore
+echo "*.log" >> .gitignore
+echo ".DS_Store" >> .gitignore
+echo "venv/" >> .gitignore
+echo "env/" >> .gitignore
