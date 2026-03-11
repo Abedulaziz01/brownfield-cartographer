@@ -1,0 +1,53 @@
+{
+  "repo_path": "C:\\Users\\user\\Desktop\\mll\\week4\\target-repos\\ol-data-platform",
+  "repo_name": "ol-data-platform",
+  "analyzed_at": "2026-03-11T13:34:38.901543",
+  "files_analyzed": 1108,
+  "graph_stats": {
+    "name": "ol-data-platform",
+    "total_nodes": 1108,
+    "total_edges": 1,
+    "modules": 1108,
+    "datasets": 0,
+    "functions": 0,
+    "transformations": 0
+  },
+  "high_impact_modules": [
+    {
+      "path": ".pre-commit-config.yaml",
+      "pagerank": 0,
+      "in_degree": 0,
+      "out_degree": 0,
+      "change_velocity": 4
+    },
+    {
+      "path": "build.yaml",
+      "pagerank": 0,
+      "in_degree": 0,
+      "out_degree": 0,
+      "change_velocity": 0
+    },
+    {
+      "path": "docker-compose.yaml",
+      "pagerank": 0,
+      "in_degree": 0,
+      "out_degree": 0,
+      "change_velocity": 2
+    },
+    {
+      "path": ".gemini\\config.yaml",
+      "pagerank": 0,
+      "in_degree": 0,
+      "out_degree": 0,
+      "change_velocity": 0
+    },
+    {
+      "path": ".github\\workflows\\project_automation.yaml",
+      "pagerank": 0,
+      "in_degree": 0,
+      "out_degree": 0,
+      "change_velocity": 0
+    }
+  ],
+  "circular_dependencies": []
+}

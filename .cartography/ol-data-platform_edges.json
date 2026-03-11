@@ -1,0 +1,479 @@
+[
+  {
+    "source": "module:packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+    "target": "module:packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.269224"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessment.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.317910"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessmentfeedback.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.319835"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessmentfeedbackoption.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.321765"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessmentfeedback_assessments.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.323066"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessmentfeedback_options.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.325267"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_assessmentpart.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.326866"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\sync.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.328412"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.329618"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+    "target": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.330827"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.331524"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\sync.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.333002"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.334149"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+    "target": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.334850"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.335815"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_rubric.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.337397"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_rubric.sql",
+    "target": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.338038"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_rubric.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.338497"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_trainingexample.sql",
+    "target": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.339944"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_trainingexample.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.340651"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_trainingexample_options_selected.sql",
+    "target": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.343081"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_trainingexample_options_selected.sql",
+    "target": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.343935"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessment.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.352341"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessmentfeedback.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.353858"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessmentfeedbackoption.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.355460"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessmentfeedback_assessments.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.356701"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessmentfeedback_options.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.358962"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\mitxonline\\irx__mitxonline__openedx__mysql__assessment_assessmentpart.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.360409"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessment.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.367716"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessmentfeedback.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.369089"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessmentfeedbackoption.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.371268"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessmentfeedback_assessments.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.372543"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessmentfeedback_options.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.374109"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\external\\irx\\xpro\\irx__xpro__openedx__mysql__assessment_assessmentpart.sql",
+    "target": "module:bin\\dbt-create-staging-models.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.376033"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\bootcamps\\int__bootcamps__courses.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.387982"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\edxorg\\int__edxorg__mitx_courseruns.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.407775"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\int__micromasters__dedp_proctored_exam_grades.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.444521"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\int__micromasters__program_requirements.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.453591"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\subqueries\\__micromasters_course_certificates_dedp_from_micromasters.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.457901"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\subqueries\\__micromasters_course_certificates_dedp_from_mitxonline.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.460433"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\subqueries\\__micromasters_course_grades_dedp_from_micromasters.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.463846"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\micromasters\\subqueries\\__micromasters_course_grades_dedp_from_mitxonline.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.465513"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitx\\int__mitx__program_requirements.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.483148"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitxonline\\int__mitxonline__b2b_contract_to_courseruns.sql",
+    "target": "module:dg_projects\\b2b_organization\\b2b_organization\\partitions\\b2b_organization.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.486414"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitxonline\\int__mitxonline__courses.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.498877"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitxonline\\int__mitxonline__course_runs.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.502674"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitxpro\\int__mitxpro__courses.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.540120"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\mitxpro\\int__mitxpro__course_runs.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.546954"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\intermediate\\zendesk\\int__zendesk__ticket.sql",
+    "target": "module:dg_projects\\b2b_organization\\b2b_organization\\partitions\\b2b_organization.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.597269"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\marts\\mitxpro\\marts__mitxpro_ecommerce_productlist.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.649808"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\marts\\ocw\\marts__ocw_courses.sql",
+    "target": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.651178"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\reporting\\instructor_module_report.sql",
+    "target": "module:dg_projects\\canvas\\canvas\\assets\\canvas.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.673038"
+    }
+  },
+  {
+    "source": "module:src\\ol_dbt\\models\\reporting\\learner_engagement_report.sql",
+    "target": "module:dg_projects\\canvas\\canvas\\assets\\canvas.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T14:36:48.678830"
+    }
+  }
+]

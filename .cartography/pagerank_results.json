@@ -1,0 +1,62 @@
+{
+  "computed": true,
+  "total_nodes": 1108,
+  "max_score": 1.0,
+  "min_score": 0.0,
+  "mean_score": 0.004555612858861956,
+  "median_score": 0.0,
+  "std_dev": 0.040661057008466915,
+  "top_nodes": [
+    {
+      "node": "module:bin\\dbt-create-staging-models.py",
+      "path": "bin\\dbt-create-staging-models.py",
+      "score": 1.0
+    },
+    {
+      "node": "module:dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+      "path": "dg_projects\\edxorg\\edxorg\\jobs\\edx_gcs_courses.py",
+      "score": 0.7142857142857143
+    },
+    {
+      "node": "module:dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+      "path": "dg_projects\\lakehouse\\lakehouse\\resources\\airbyte.py",
+      "score": 0.23809523809523808
+    },
+    {
+      "node": "module:src\\ol_superset\\ol_superset\\commands\\validate.py",
+      "path": "src\\ol_superset\\ol_superset\\commands\\validate.py",
+      "score": 0.23809523809523808
+    },
+    {
+      "node": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+      "path": "src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterion.sql",
+      "score": 0.19047619047619047
+    },
+    {
+      "node": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+      "path": "src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_criterionoption.sql",
+      "score": 0.19047619047619047
+    },
+    {
+      "node": "module:src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_rubric.sql",
+      "path": "src\\ol_dbt\\models\\external\\irx\\mitx\\irx__mitx__openedx__mysql__assessment_rubric.sql",
+      "score": 0.14285714285714288
+    },
+    {
+      "node": "module:dg_projects\\b2b_organization\\b2b_organization\\partitions\\b2b_organization.py",
+      "path": "dg_projects\\b2b_organization\\b2b_organization\\partitions\\b2b_organization.py",
+      "score": 0.09523809523809523
+    },
+    {
+      "node": "module:dg_projects\\canvas\\canvas\\assets\\canvas.py",
+      "path": "dg_projects\\canvas\\canvas\\assets\\canvas.py",
+      "score": 0.09523809523809523
+    },
+    {
+      "node": "module:packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+      "path": "packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+      "score": 0.09523809523809523
+    }
+  ],
+  "method": "degree_centrality (fallback)"
+}

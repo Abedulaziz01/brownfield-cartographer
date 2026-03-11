@@ -1,0 +1,19 @@
+{
+  "name": "ol-data-platform",
+  "created_at": "2026-03-11 14:36:47.202719",
+  "updated_at": "2026-03-11 14:36:48.678992",
+  "total_nodes": 1108,
+  "total_edges": 53,
+  "node_counts": {
+    "module": 1108,
+    "dataset": 0,
+    "function": 0,
+    "transformation": 0
+  },
+  "node_types": {
+    "module": 1108
+  },
+  "edge_types": {
+    "IMPORTS": 53
+  }
+}

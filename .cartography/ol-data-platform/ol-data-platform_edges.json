@@ -1,0 +1,11 @@
+[
+  {
+    "source": "module:packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+    "target": "module:packages\\ol-orchestrate-lib\\src\\ol_orchestrate\\resources\\github.py",
+    "data": {
+      "edge_type": "IMPORTS",
+      "weight": 1,
+      "created_at": "2026-03-11T13:34:38.470332"
+    }
+  }
+]
