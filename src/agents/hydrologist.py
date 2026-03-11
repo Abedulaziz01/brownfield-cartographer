@@ -24,7 +24,6 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-
 class HydrologistAgent:
     """Hydrologist Agent - Maps data lineage through the system."""
 
@@ -307,3 +306,4 @@ class HydrologistAgent:
             json.dump(summary, f, indent=2)
 
         logger.info(f"Saved lineage graph and summary to {output_path}")
+
