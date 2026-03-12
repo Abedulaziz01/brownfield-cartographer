@@ -1,0 +1,79 @@
+{
+  "datasets": {
+    "data/input.csv": {
+      "name": "data/input.csv",
+      "type": "file",
+      "first_seen": "tests\\test_hydrologist.py",
+      "references": [
+        {
+          "file": "tests\\test_hydrologist.py",
+          "type": "source"
+        }
+      ]
+    },
+    "data/output.csv": {
+      "name": "data/output.csv",
+      "type": "file",
+      "first_seen": "tests\\test_hydrologist.py",
+      "references": [
+        {
+          "file": "tests\\test_hydrologist.py",
+          "type": "target"
+        }
+      ]
+    },
+    "processed_data": {
+      "name": "processed_data",
+      "type": "dataset",
+      "first_seen": "tests\\test_hydrologist.py",
+      "references": [
+        {
+          "file": "tests\\test_hydrologist.py",
+          "type": "target"
+        }
+      ]
+    }
+  },
+  "transformations": [
+    {
+      "id": "python:tests\\test_hydrologist.py",
+      "file": "tests\\test_hydrologist.py",
+      "type": "python",
+      "sources": [
+        "data/input.csv"
+      ],
+      "targets": [
+        "data/output.csv",
+        "processed_data"
+      ],
+      "operations": [
+        "read_csv",
+        "to_csv",
+        "to_sql"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "data/input.csv",
+      "target": "data/output.csv",
+      "transformation": "python:tests\\test_hydrologist.py",
+      "file": "tests\\test_hydrologist.py",
+      "type": "python"
+    },
+    {
+      "source": "data/input.csv",
+      "target": "processed_data",
+      "transformation": "python:tests\\test_hydrologist.py",
+      "file": "tests\\test_hydrologist.py",
+      "type": "python"
+    }
+  ],
+  "sources": [
+    "data/input.csv"
+  ],
+  "sinks": [
+    "data/output.csv",
+    "processed_data"
+  ]
+}

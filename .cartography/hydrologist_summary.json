@@ -1,0 +1,15 @@
+{
+  "repo_path": "C:\\Users\\user\\Desktop\\mll\\week4\\brownfield-cartographer",
+  "repo_name": "brownfield-cartographer",
+  "analyzed_at": "2026-03-12T11:57:31.107845",
+  "datasets_found": 3,
+  "transformations_found": 1,
+  "edges_found": 2,
+  "sources": [
+    "data/input.csv"
+  ],
+  "sinks": [
+    "data/output.csv",
+    "processed_data"
+  ]
+}

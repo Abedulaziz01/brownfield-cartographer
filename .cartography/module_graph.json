@@ -5,7 +5,7 @@
       "path": ".pre-commit-config.yaml",
       "language": "yaml",
       "complexity": 0.0,
-      "change_velocity": 4,
+      "change_velocity": 3,
       "pagerank": 0.0,
       "in_degree": 0,
       "out_degree": 0,

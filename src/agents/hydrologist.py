@@ -27,7 +27,7 @@ from analyzers.language_router import LanguageRouter
 
 # Set up logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,  # Changed to DEBUG for more verbose output
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
@@ -55,6 +55,9 @@ class HydrologistAgent:
         self.repo_path = Path(repo_path).resolve()
         self.repo_name = self.repo_path.name
         
+        print(f"\n🔍 Initializing Hydrologist Agent for: {self.repo_path}")
+        print(f"📁 Repository name: {self.repo_name}")
+        
         # Initialize analyzers
         self.sql_analyzer = SQLLineageAnalyzer()
         self.dag_parser = DAGConfigParser()
@@ -75,7 +78,7 @@ class HydrologistAgent:
         self.datasets = {}  # name -> metadata
         self.transformations = []  # list of transformations
         
-        logger.info(f"Hydrologist Agent initialized for {self.repo_path}")
+        print(f"✅ Hydrologist Agent initialized")
     
     def analyze(self) -> KnowledgeGraph:
         """
@@ -84,37 +87,62 @@ class HydrologistAgent:
         Returns:
             Populated KnowledgeGraph with lineage data
         """
-        logger.info(f"Starting data lineage analysis of {self.repo_path}")
+        print(f"\n🔍 Starting data lineage analysis of {self.repo_path}")
         
         # Step 1: Find all relevant files
         sql_files = []
         config_files = []
         python_files = []
+        other_files = []
         
         for root, dirs, files in os.walk(self.repo_path):
+            # Skip common directories to avoid noise
             dirs[:] = [d for d in dirs if d not in 
-                      ['.git', '__pycache__', 'node_modules', 'venv', 'env', '.pytest_cache', 'dist']]
+                      ['.git', '__pycache__', 'node_modules', 'venv', 'env', '.pytest_cache', 'dist', 'build']]
             
             for file in files:
                 file_path = os.path.join(root, file)
+                rel_path = os.path.relpath(file_path, self.repo_path)
                 
                 if file.endswith('.sql'):
                     sql_files.append(file_path)
-                elif file.endswith(('.yml', '.yaml', '.json')):
+                    print(f"  📄 Found SQL: {rel_path}")
+                elif file.endswith(('.yml', '.yaml')):
                     config_files.append(file_path)
+                    print(f"  ⚙️  Found YAML: {rel_path}")
+                elif file.endswith('.json'):
+                    config_files.append(file_path)
+                    print(f"  ⚙️  Found JSON: {rel_path}")
                 elif file.endswith('.py'):
                     python_files.append(file_path)
+                    print(f"  🐍 Found Python: {rel_path}")
+                elif file.endswith(('.csv', '.parquet', '.json')):
+                    other_files.append(file_path)
+                    print(f"  📊 Found data file: {rel_path}")
         
-        logger.info(f"Found {len(sql_files)} SQL files, {len(config_files)} config files, {len(python_files)} Python files")
+        print(f"\n📊 File Summary:")
+        print(f"  SQL files: {len(sql_files)}")
+        print(f"  Config files: {len(config_files)}")
+        print(f"  Python files: {len(python_files)}")
+        print(f"  Data files: {len(other_files)}")
         
         # Step 2: Analyze SQL files for lineage
-        self._analyze_sql_files(sql_files)
+        if sql_files:
+            self._analyze_sql_files(sql_files)
+        else:
+            print("  ⚠️  No SQL files found to analyze")
         
         # Step 3: Parse DAG configurations
-        self._parse_config_files(config_files)
+        if config_files:
+            self._parse_config_files(config_files)
+        else:
+            print("  ⚠️  No config files found to analyze")
         
         # Step 4: Detect data operations in Python
-        self._analyze_python_files(python_files)
+        if python_files:
+            self._analyze_python_files(python_files)
+        else:
+            print("  ⚠️  No Python files found to analyze")
         
         # Step 5: Build unified lineage graph
         self._build_lineage_graph()
@@ -122,76 +150,98 @@ class HydrologistAgent:
         # Step 6: Add to knowledge graph
         self._populate_knowledge_graph()
         
-        logger.info(f"Lineage analysis complete. Found {len(self.datasets)} datasets, "
-                   f"{len(self.transformations)} transformations")
+        print(f"\n✅ Lineage analysis complete!")
+        print(f"  📊 Datasets found: {len(self.datasets)}")
+        print(f"  🔄 Transformations: {len(self.transformations)}")
+        print(f"  🔗 Edges: {len(self.lineage_graph['edges'])}")
         
         return self.kg
     
     def _analyze_sql_files(self, sql_files: List[str]):
         """Analyze SQL files for data lineage."""
-        logger.info("Analyzing SQL files...")
+        print(f"\n🔍 Analyzing SQL files for lineage...")
         
         for file_path in sql_files:
             rel_path = os.path.relpath(file_path, self.repo_path)
+            print(f"\n  📄 Processing: {rel_path}")
             
             try:
                 # Read the SQL file
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     sql_content = f.read()
+                    print(f"    SQL content length: {len(sql_content)} characters")
                 
                 # Extract table names using regex
                 tables = self._extract_table_names(sql_content)
+                print(f"    Found tables: {tables}")
                 
                 if tables:
                     # For CREATE TABLE ... AS SELECT statements, the first table is the target
                     # and the rest are sources
                     if 'CREATE TABLE' in sql_content.upper() and 'AS SELECT' in sql_content.upper():
                         if len(tables) >= 1:
+                            sources = tables[1:] if len(tables) > 1 else []
+                            targets = [tables[0]] if tables else []
+                            
                             transformation = {
                                 "id": f"sql:{rel_path}",
                                 "file": rel_path,
                                 "type": "sql",
-                                "sources": tables[1:] if len(tables) > 1 else [],
-                                "targets": [tables[0]] if tables else [],
+                                "sources": sources,
+                                "targets": targets,
                                 "intermediate": [],
-                                "sql": sql_content[:500]  # Store first 500 chars as sample
+                                "sql": sql_content[:200]  # Store first 200 chars as sample
                             }
+                            print(f"    CREATE TABLE AS: sources={sources}, targets={targets}")
                     else:
                         # For other SQL statements, try to determine based on keywords
+                        sources = self._find_source_tables(sql_content, tables)
+                        targets = self._find_target_tables(sql_content, tables)
+                        
                         transformation = {
                             "id": f"sql:{rel_path}",
                             "file": rel_path,
                             "type": "sql",
-                            "sources": self._find_source_tables(sql_content, tables),
-                            "targets": self._find_target_tables(sql_content, tables),
+                            "sources": sources,
+                            "targets": targets,
                             "intermediate": [],
-                            "sql": sql_content[:500]
+                            "sql": sql_content[:200]
                         }
+                        print(f"    Other SQL: sources={sources}, targets={targets}")
                     
-                    self.transformations.append(transformation)
-                    
-                    # Add to lineage graph
-                    for source in transformation["sources"]:
-                        self._add_dataset(source, "source", rel_path)
-                    
-                    for target in transformation["targets"]:
-                        self._add_dataset(target, "target", rel_path)
-                    
-                    # Create edges
-                    for source in transformation["sources"]:
-                        for target in transformation["targets"]:
-                            self.lineage_graph["edges"].append({
-                                "source": source,
-                                "target": target,
-                                "transformation": transformation["id"],
-                                "file": rel_path,
-                                "type": "sql"
-                            })
+                    if sources or targets:
+                        self.transformations.append(transformation)
+                        print(f"    ✅ Added transformation")
+                        
+                        # Add to lineage graph
+                        for source in sources:
+                            self._add_dataset(source, "source", rel_path)
+                        
+                        for target in targets:
+                            self._add_dataset(target, "target", rel_path)
+                        
+                        # Create edges
+                        for source in sources:
+                            for target in targets:
+                                edge = {
+                                    "source": source,
+                                    "target": target,
+                                    "transformation": transformation["id"],
+                                    "file": rel_path,
+                                    "type": "sql"
+                                }
+                                self.lineage_graph["edges"].append(edge)
+                                print(f"    🔗 Added edge: {source} -> {target}")
+                    else:
+                        print(f"    ⚠️  No sources or targets found")
+                else:
+                    print(f"    ⚠️  No tables found in SQL")
             
             except Exception as e:
-                logger.debug(f"Error analyzing SQL file {rel_path}: {e}")
+                print(f"    ❌ Error analyzing SQL file: {e}")
+                logger.debug(f"Error analyzing SQL file {rel_path}: {e}", exc_info=True)
         
-        logger.info(f"Analyzed {len(sql_files)} SQL files, found {len(self.transformations)} transformations")
+        print(f"\n  ✅ Analyzed {len(sql_files)} SQL files, found {len(self.transformations)} transformations")
     
     def _extract_table_names(self, sql: str) -> List[str]:
         """
@@ -284,41 +334,63 @@ class HydrologistAgent:
     
     def _parse_config_files(self, config_files: List[str]):
         """Parse DAG configuration files."""
-        logger.info("Parsing configuration files...")
+        print(f"\n🔍 Parsing configuration files...")
         
         # Look for dbt schema files
+        yaml_found = False
         for file_path in config_files:
-            if 'schema.yml' in file_path or 'schema.yaml' in file_path:
-                rel_path = os.path.relpath(file_path, self.repo_path)
+            rel_path = os.path.relpath(file_path, self.repo_path)
+            
+            if 'schema.yml' in file_path.lower() or 'schema.yaml' in file_path.lower():
+                yaml_found = True
+                print(f"\n  ⚙️  Processing dbt schema: {rel_path}")
                 
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
-                        import yaml
-                        config = yaml.safe_load(f)
-                    
-                    # Extract models (targets)
-                    if 'models' in config:
-                        for model in config['models']:
-                            if 'name' in model:
-                                self._add_dataset(model['name'], "target", rel_path)
-                    
-                    # Extract sources
-                    if 'sources' in config:
-                        for source in config['sources']:
-                            if 'tables' in source:
-                                for table in source['tables']:
-                                    if 'name' in table:
-                                        self._add_dataset(f"{source.get('name', 'raw')}.{table['name']}", 
-                                                        "source", rel_path)
+                        content = f.read()
+                        print(f"    File size: {len(content)} characters")
+                        
+                        # Try to parse YAML
+                        try:
+                            import yaml
+                            config = yaml.safe_load(content)
+                            print(f"    ✅ Successfully parsed YAML")
+                            
+                            # Extract models (targets)
+                            if 'models' in config:
+                                print(f"    Found {len(config['models'])} models")
+                                for model in config['models']:
+                                    if 'name' in model:
+                                        self._add_dataset(model['name'], "target", rel_path)
+                                        print(f"      📊 Added model: {model['name']}")
+                            
+                            # Extract sources
+                            if 'sources' in config:
+                                print(f"    Found {len(config['sources'])} sources")
+                                for source in config['sources']:
+                                    source_name = source.get('name', 'raw')
+                                    if 'tables' in source:
+                                        for table in source['tables']:
+                                            if 'name' in table:
+                                                dataset_name = f"{source_name}.{table['name']}"
+                                                self._add_dataset(dataset_name, "source", rel_path)
+                                                print(f"      📊 Added source: {dataset_name}")
+                        except ImportError:
+                            print(f"    ⚠️  PyYAML not installed, skipping YAML parsing")
+                        except Exception as e:
+                            print(f"    ❌ Error parsing YAML: {e}")
                 
                 except Exception as e:
-                    logger.debug(f"Error parsing config {rel_path}: {e}")
+                    print(f"    ❌ Error reading file: {e}")
         
-        logger.info(f"Parsed {len(config_files)} config files")
+        if not yaml_found:
+            print(f"  ⚠️  No dbt schema files found")
+        
+        print(f"\n  ✅ Parsed {len(config_files)} config files")
     
     def _analyze_python_files(self, python_files: List[str]):
         """Analyze Python files for data operations."""
-        logger.info("Analyzing Python files for data operations...")
+        print(f"\n🔍 Analyzing Python files for data operations...")
         
         # Patterns for data operations
         data_patterns = {
@@ -338,17 +410,23 @@ class HydrologistAgent:
         
         for file_path in python_files:
             rel_path = os.path.relpath(file_path, self.repo_path)
+            print(f"\n  🐍 Processing: {rel_path}")
             
             try:
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()
+                    print(f"    Python file size: {len(content)} characters")
                 
                 sources = []
                 targets = []
+                operations_found = []
                 
                 # Find data operations
                 for op_name, pattern in data_patterns.items():
-                    for match in re.finditer(pattern, content, re.IGNORECASE):
+                    matches = re.finditer(pattern, content, re.IGNORECASE)
+                    match_count = 0
+                    for match in matches:
+                        match_count += 1
                         dataset = match.group(1)
                         # Clean up the dataset name (remove quotes, etc.)
                         dataset = dataset.strip('\'"')
@@ -357,45 +435,57 @@ class HydrologistAgent:
                             if dataset not in sources:
                                 sources.append(dataset)
                                 self._add_dataset(dataset, "source", rel_path)
+                                print(f"      📥 Found source: {dataset} ({op_name})")
                         else:
                             if dataset not in targets:
                                 targets.append(dataset)
                                 self._add_dataset(dataset, "target", rel_path)
+                                print(f"      📤 Found target: {dataset} ({op_name})")
+                        
+                        if op_name not in operations_found:
+                            operations_found.append(op_name)
+                    
+                    if match_count > 0:
+                        print(f"      Found {match_count} matches for {op_name}")
                 
                 # Create transformation if we found anything
                 if sources or targets:
-                    # Find all operations used
-                    operations_found = []
-                    for op_name in data_patterns.keys():
-                        if re.search(data_patterns[op_name], content, re.IGNORECASE):
-                            operations_found.append(op_name)
-                    
                     transformation = {
                         "id": f"python:{rel_path}",
                         "file": rel_path,
                         "type": "python",
                         "sources": sources,
                         "targets": targets,
-                        "operations": list(set(operations_found))
+                        "operations": operations_found
                     }
                     self.transformations.append(transformation)
+                    print(f"    ✅ Added Python transformation")
                     
                     # Create edges
                     if sources and targets:
                         for source in sources:
                             for target in targets:
-                                self.lineage_graph["edges"].append({
+                                edge = {
                                     "source": source,
                                     "target": target,
                                     "transformation": transformation["id"],
                                     "file": rel_path,
                                     "type": "python"
-                                })
+                                }
+                                self.lineage_graph["edges"].append(edge)
+                                print(f"      🔗 Added edge: {source} -> {target}")
+                    elif sources and not targets:
+                        print(f"      ⚠️  Only sources found (no write operations)")
+                    elif not sources and targets:
+                        print(f"      ⚠️  Only targets found (no read operations)")
+                else:
+                    print(f"    ⚠️  No data operations found")
             
             except Exception as e:
-                logger.debug(f"Error analyzing Python file {rel_path}: {e}")
+                print(f"    ❌ Error analyzing Python file: {e}")
+                logger.debug(f"Error analyzing Python file {rel_path}: {e}", exc_info=True)
         
-        logger.info(f"Analyzed {len(python_files)} Python files")
+        print(f"\n  ✅ Analyzed {len(python_files)} Python files")
     
     def _add_dataset(self, name: str, source_type: str, file_path: str):
         """Add a dataset to the lineage graph."""
@@ -424,7 +514,7 @@ class HydrologistAgent:
             })
         
         # Try to infer dataset type
-        if name.endswith(('.csv', '.parquet', '.json', '.xml', '.txt')):
+        if name.endswith(('.csv', '.parquet', '.json', '.xml', '.txt', '.sqlite')):
             self.datasets[name]["type"] = "file"
         elif '.' in name and not name.startswith(('.', '/')):
             # Could be schema.table or file with extension
@@ -439,7 +529,7 @@ class HydrologistAgent:
     
     def _build_lineage_graph(self):
         """Build the unified lineage graph."""
-        logger.info("Building unified lineage graph...")
+        print(f"\n🔍 Building unified lineage graph...")
         
         # Add all datasets as nodes
         self.lineage_graph["nodes"] = self.datasets
@@ -456,11 +546,11 @@ class HydrologistAgent:
         
         self.lineage_graph["edges"] = unique_edges
         
-        logger.info(f"Lineage graph: {len(self.datasets)} datasets, {len(self.lineage_graph['edges'])} edges")
+        print(f"  📊 Lineage graph: {len(self.datasets)} datasets, {len(self.lineage_graph['edges'])} edges")
     
     def _populate_knowledge_graph(self):
         """Add lineage data to the knowledge graph."""
-        logger.info("Populating knowledge graph with lineage data...")
+        print(f"\n🔍 Populating knowledge graph with lineage data...")
         
         # Add dataset nodes
         for name, metadata in self.datasets.items():
@@ -489,6 +579,8 @@ class HydrologistAgent:
             
             for target in trans.get("targets", []):
                 self.kg.add_produces_edge(trans_id, target)
+        
+        print(f"  ✅ Added {len(self.datasets)} datasets and {len(self.transformations)} transformations to knowledge graph")
     
     def blast_radius(self, dataset_name: str) -> Dict[str, Any]:
         """
@@ -632,8 +724,11 @@ class HydrologistAgent:
         output_path = Path(output_dir)
         output_path.mkdir(parents=True, exist_ok=True)
         
+        print(f"\n💾 Saving results to {output_path}...")
+        
         # Save knowledge graph
         self.kg.serialize_graph(output_path)
+        print(f"  ✅ Saved knowledge graph")
         
         # Save lineage graph
         lineage_path = output_path / "lineage_graph.json"
@@ -646,7 +741,10 @@ class HydrologistAgent:
                 "sinks": self.find_sinks()
             }, f, indent=2)
         
-        logger.info(f"Saved lineage graph to {lineage_path}")
+        print(f"  ✅ Saved lineage graph to {lineage_path}")
+        print(f"     - {len(self.datasets)} datasets")
+        print(f"     - {len(self.transformations)} transformations")
+        print(f"     - {len(self.lineage_graph['edges'])} edges")
         
         # Save summary
         summary = {
@@ -664,7 +762,15 @@ class HydrologistAgent:
         with open(summary_path, 'w') as f:
             json.dump(summary, f, indent=2)
         
-        logger.info(f"Saved hydrologist summary to {summary_path}")
+        print(f"  ✅ Saved summary to {summary_path}")
+        
+        return {
+            "lineage_path": str(lineage_path),
+            "summary_path": str(summary_path),
+            "datasets": len(self.datasets),
+            "transformations": len(self.transformations),
+            "edges": len(self.lineage_graph["edges"])
+        }
 
 
 def main():
@@ -694,13 +800,20 @@ def main():
     
     # Run hydrologist
     try:
-        hydrologist = HydrologistAgent(args.repo)
-        hydrologist.analyze()
-        hydrologist.save_results(args.output)
+        print("\n" + "="*60)
+        print("🌊 HYDROLOGIST AGENT - Data Lineage Analysis")
+        print("="*60)
         
-        print(f"\n✅ Hydrologist analysis complete!")
-        print(f"📊 Found {len(hydrologist.datasets)} datasets")
-        print(f"🔄 Found {len(hydrologist.transformations)} transformations")
+        hydrologist = HydrologistAgent(args.repo)
+        results = hydrologist.analyze()
+        save_results = hydrologist.save_results(args.output)
+        
+        print("\n" + "="*60)
+        print("✅ HYDROLOGIST ANALYSIS COMPLETE!")
+        print("="*60)
+        print(f"📊 Found {save_results['datasets']} datasets")
+        print(f"🔄 Found {save_results['transformations']} transformations")
+        print(f"🔗 Found {save_results['edges']} data flow edges")
         print(f"📁 Results saved to {args.output}/")
         
         # Show sources and sinks
@@ -709,11 +822,11 @@ def main():
         
         print(f"\n📥 Source datasets (no inputs): {len(sources)}")
         if sources:
-            print(f"  First 5: {sources[:5]}")
+            print(f"  {', '.join(sources[:5])}{'...' if len(sources) > 5 else ''}")
         
         print(f"\n📤 Sink datasets (no outputs): {len(sinks)}")
         if sinks:
-            print(f"  First 5: {sinks[:5]}")
+            print(f"  {', '.join(sinks[:5])}{'...' if len(sinks) > 5 else ''}")
         
         # Handle specific queries
         if args.dataset:

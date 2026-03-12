@@ -1,0 +1,60 @@
+{
+  "dataset:data/input.csv": {
+    "node_type": "dataset",
+    "name": "data/input.csv",
+    "storage_type": "file",
+    "schema_snapshot": "{}",
+    "freshness_sla": null,
+    "owner": null,
+    "is_source_of_truth": false,
+    "created_at": "2026-03-12T11:57:30.915018",
+    "references": [
+      {
+        "file": "tests\\test_hydrologist.py",
+        "type": "source"
+      }
+    ]
+  },
+  "dataset:data/output.csv": {
+    "node_type": "dataset",
+    "name": "data/output.csv",
+    "storage_type": "file",
+    "schema_snapshot": "{}",
+    "freshness_sla": null,
+    "owner": null,
+    "is_source_of_truth": false,
+    "created_at": "2026-03-12T11:57:30.915366",
+    "references": [
+      {
+        "file": "tests\\test_hydrologist.py",
+        "type": "target"
+      }
+    ]
+  },
+  "dataset:processed_data": {
+    "node_type": "dataset",
+    "name": "processed_data",
+    "storage_type": "dataset",
+    "schema_snapshot": "{}",
+    "freshness_sla": null,
+    "owner": null,
+    "is_source_of_truth": false,
+    "created_at": "2026-03-12T11:57:30.915383",
+    "references": [
+      {
+        "file": "tests\\test_hydrologist.py",
+        "type": "target"
+      }
+    ]
+  },
+  "transform:data/input.csv->data/output.csv_processed_data": {
+    "node_type": "transformation",
+    "source_datasets": "[\"data/input.csv\"]",
+    "target_datasets": "[\"data/output.csv\", \"processed_data\"]",
+    "transformation_type": "python",
+    "source_file": "tests\\test_hydrologist.py",
+    "line_range": "",
+    "sql_query": "",
+    "created_at": "2026-03-12T11:57:30.915736"
+  }
+}
