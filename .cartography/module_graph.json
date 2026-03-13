@@ -27,7 +27,7 @@
       "path": "docker-compose.yaml",
       "language": "yaml",
       "complexity": 0.0,
-      "change_velocity": 2,
+      "change_velocity": 1,
       "pagerank": 0.0,
       "in_degree": 0,
       "out_degree": 0,

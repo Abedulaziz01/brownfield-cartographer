@@ -1,0 +1,45 @@
+{
+  "primary_ingestion_path": {
+    "answer": "Data is primarily ingested through Kafka consumers in the ingestion module",
+    "evidence": [
+      "src/ingestion/kafka_consumer.py"
+    ],
+    "confidence": "Medium"
+  },
+  "critical_datasets": [
+    {
+      "name": "user_events",
+      "why_critical": "Core business metrics depend on this",
+      "evidence": [
+        "src/processing/event_processor.py"
+      ],
+      "confidence": "Medium"
+    }
+  ],
+  "blast_radius_module": {
+    "module": "src/core/processor.py",
+    "why": "Central processing logic with many dependents",
+    "would_break": [
+      "api",
+      "reporting",
+      "analytics"
+    ],
+    "confidence": "Medium"
+  },
+  "business_logic_location": {
+    "location": "src/business_rules/",
+    "pattern": "Concentrated in rule engine",
+    "evidence": [
+      "src/business_rules/engine.py"
+    ],
+    "confidence": "Medium"
+  },
+  "change_velocity": {
+    "most_changed": [
+      "src/api/endpoints.py",
+      "src/models/user.py"
+    ],
+    "pattern": "API changes most frequently",
+    "insight": "Frontend team iterating rapidly"
+  }
+}

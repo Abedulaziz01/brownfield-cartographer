@@ -1,0 +1,13 @@
+{
+  "total_tokens_used": 98231,
+  "total_cost": 0.008672,
+  "max_tokens": 100000,
+  "max_cost": 1.0,
+  "tokens_remaining": 1769,
+  "cost_remaining": 0.991328,
+  "total_calls": 58,
+  "successful_calls": 0,
+  "failed_calls": 58,
+  "start_time": "2026-03-13T15:34:12.216700",
+  "elapsed_hours": 0.0054277047222222215
+}
