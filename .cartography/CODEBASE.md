@@ -1,0 +1,172 @@
+# ol-data-platform Codebase Intelligence
+
+*Generated on: 2026-03-13 16:09:48*
+*Analysis covers 1108 files*
+
+---
+
+## 🏗️ Architecture Overview
+
+
+**Business Domains:**
+- **Ingestion**: 3 modules
+- **API**: 4 modules
+- **Storage**: 6 modules
+- **Utils**: 45 modules
+
+## 🔥 Critical Path (High Impact Modules)
+
+These modules have the highest PageRank - changes here affect many other files:
+
+### 1. `bin\dbt-create-staging-models.py`
+**Impact score:** 1.0000
+**Purpose:** Analysis failed
+
+### 2. `dg_projects\edxorg\edxorg\jobs\edx_gcs_courses.py`
+**Impact score:** 0.7143
+**Purpose:** Analysis failed
+
+### 3. `dg_projects\lakehouse\lakehouse\resources\airbyte.py`
+**Impact score:** 0.2381
+**Purpose:** Analysis failed
+
+### 4. `src\ol_superset\ol_superset\commands\validate.py`
+**Impact score:** 0.2381
+**Purpose:** No purpose statement
+
+### 5. `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_criterion.sql`
+**Impact score:** 0.1905
+**Purpose:** No purpose statement
+
+### 6. `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_criterionoption.sql`
+**Impact score:** 0.1905
+**Purpose:** No purpose statement
+
+### 7. `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_rubric.sql`
+**Impact score:** 0.1429
+**Purpose:** No purpose statement
+
+### 8. `dg_projects\b2b_organization\b2b_organization\partitions\b2b_organization.py`
+**Impact score:** 0.0952
+**Purpose:** Analysis failed
+
+### 9. `dg_projects\canvas\canvas\assets\canvas.py`
+**Impact score:** 0.0952
+**Purpose:** Analysis failed
+
+### 10. `packages\ol-orchestrate-lib\src\ol_orchestrate\resources\github.py`
+**Impact score:** 0.0952
+**Purpose:** No purpose statement
+
+## 📊 Data Flow
+
+**📥 Source Datasets** (where data enters)
+- `Airbyte`
+- `source_sorted`
+- `most`
+- `source`
+- `a`
+  *...and 743 more*
+
+**📤 Sink Datasets** (final outputs)
+- `Airbyte`
+- `source_sorted`
+- `most`
+- `source`
+- `a`
+  *...and 743 more*
+
+## 📝 Documentation Health
+
+- **Files with purpose statements:** 58/1108
+
+## ⚡ Change Velocity
+
+Files that change most frequently (likely pain points):
+
+1. `.pre-commit-config.yaml` (3 changes in 30d)
+2. `docker-compose.yaml` (1 changes in 30d)
+
+## 🚧 Known Technical Debt
+
+- **Dead code candidates:** 5 modules may be unused
+  - `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_assessment.sql`
+  - `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_assessmentfeedback.sql`
+  - `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_assessmentfeedbackoption.sql`
+  - `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_assessmentfeedback_assessments.sql`
+  - `src\ol_dbt\models\external\irx\mitx\irx__mitx__openedx__mysql__assessment_assessmentfeedback_options.sql`
+
+## 🎯 Day-One Answers
+
+Answers to the 5 critical questions every new engineer needs:
+
+### 1️⃣ Primary Ingestion Path
+Data is primarily ingested through Kafka consumers in the ingestion module
+   *Evidence: src/ingestion/kafka_consumer.py*
+
+### 2️⃣ Critical Output Datasets
+- **user_events**: Core business metrics depend on this
+
+### 3️⃣ Blast Radius Module
+**src/core/processor.py**
+Central processing logic with many dependents
+
+### 4️⃣ Business Logic Location
+**src/business_rules/**
+Concentrated in rule engine
+
+### 5️⃣ Change Velocity Pattern
+Frontend team iterating rapidly
+
+## 📇 Module Purpose Index
+
+Quick reference of what each module does:
+
+### Ingestion
+- `dg_projects\data_loading\data_loading\defs\edxorg_s3_ingest\dagster_assets.py`
+  - Analysis failed...
+- `dg_projects\data_loading\data_loading\defs\edxorg_s3_ingest\defs.py`
+  - Analysis failed...
+- `dg_projects\data_loading\data_loading\defs\edxorg_s3_ingest\loads.py`
+  - Analysis failed...
+
+### API
+- `dg_projects\canvas\canvas\resources\api_client_factory.py`
+  - Analysis failed...
+- `dg_projects\edxorg\edxorg\assets\edxorg_api.py`
+  - Analysis failed...
+- `dg_projects\lakehouse\lakehouse\resources\superset_api.py`
+  - Analysis failed...
+- `dg_projects\learning_resources\learning_resources\assets\sloan_api.py`
+  - Analysis failed...
+
+### Storage
+- `.github\workflows\publish_dbt_docs.yaml`
+  - Analysis failed...
+- `bin\dbt-create-staging-models.py`
+  - Analysis failed...
+- `bin\dbt-local-dev.py`
+  - Analysis failed...
+- `dg_projects\data_platform\data_platform\assets\metadata\databases.py`
+  - Analysis failed...
+- `dg_projects\edxorg\edxorg\assets\edxorg_db_table_specs.py`
+  - Analysis failed...
+  *...and 1 more*
+
+### Utils
+- `.gemini\config.yaml`
+  - Analysis failed...
+- `.github\workflows\project_automation.yaml`
+  - Analysis failed...
+- `.pre-commit-config.yaml`
+  - Analysis failed...
+- `bin\utils\chunk_tracking_logs_by_day.py`
+  - Analysis failed...
+- `bin\uv-operations.py`
+  - Analysis failed...
+  *...and 40 more*
+
+
+---
+*This CODEBASE.md was automatically generated by Brownfield Cartographer*
+*Run `python src/agents/archivist.py` to update*

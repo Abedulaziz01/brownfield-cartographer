@@ -187,8 +187,10 @@ class ArchivistAgent:
         
         lines.append(f"- **Files with purpose statements:** {files_with_purpose}/{total_modules}")
         
-        # Documentation drift
+        # Documentation drift - FIXED: Define inaccurate variable first
         drift_count = len(self.doc_drift)
+        inaccurate = 0  # FIXED: Initialize inaccurate variable
+        
         if drift_count > 0:
             inaccurate = sum(1 for d in self.doc_drift.values() 
                            if isinstance(d, dict) and d.get('is_accurate') == 'no')
@@ -237,8 +239,8 @@ class ArchivistAgent:
             for path in dead_code:
                 debt_items.append(f"  - `{path}`")
         
-        # Documentation drift
-        if inaccurate:
+        # Documentation drift - FIXED: Use the inaccurate variable we defined above
+        if inaccurate > 0:
             debt_items.append(f"- **Documentation drift:** {inaccurate} files have outdated docs")
         
         if debt_items:
