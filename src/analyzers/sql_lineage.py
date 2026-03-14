@@ -151,3 +151,45 @@ def run_tests():
 
 if __name__ == "__main__":
     run_tests()
+    # Add to existing sql_lineage.py - DIALECT SUPPORT
+
+# At the top, add these dialects
+SUPPORTED_DIALECTS = {
+    "postgres": sqlglot.dialects.Postgres,
+    "bigquery": sqlglot.dialects.BigQuery,
+    "snowflake": sqlglot.dialects.Snowflake,
+    "duckdb": sqlglot.dialects.DuckDB,
+    "mysql": sqlglot.dialects.MySQL,
+    "redshift": sqlglot.dialects.Redshift,
+    "spark": sqlglot.dialects.Spark
+}
+
+def parse_sql_with_dialect_detection(self, sql_content: str, file_path: str) -> Dict:
+    """Auto-detect and parse SQL with multiple dialect support."""
+    results = {"sources": [], "targets": [], "dialect_used": "unknown"}
+    
+    # Try each dialect until one works
+    for dialect_name, dialect_class in self.SUPPORTED_DIALECTS.items():
+        try:
+            parsed = sqlglot.parse_one(sql_content, dialect=dialect_name)
+            if parsed:
+                # Extract tables
+                tables = parsed.find_all(exp.Table)
+                for table in tables:
+                    table_name = table.name
+                    if self._is_source_table(parsed, table):
+                        results["sources"].append(table_name)
+                    else:
+                        results["targets"].append(table_name)
+                
+                # Extract CTEs
+                ctes = parsed.find_all(exp.CTE)
+                for cte in ctes:
+                    results["intermediate"].append(cte.alias)
+                
+                results["dialect_used"] = dialect_name
+                break
+        except:
+            continue
+    
+    return results
