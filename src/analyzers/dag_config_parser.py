@@ -509,3 +509,90 @@ start >> extract >> transform >> load
 
 if __name__ == "__main__":
     test_dag_config_parser()
+
+
+    # Add to existing dag_config_parser.py
+
+def parse_airflow_dag(self, file_path: str) -> Dict[str, Any]:
+    """Parse Airflow DAG Python file."""
+    result = {
+        "type": "airflow",
+        "dags": [],
+        "tasks": [],
+        "dependencies": []
+    }
+    
+    with open(file_path, 'r') as f:
+        content = f.read()
+    
+    # Find DAG definitions
+    import re
+    dag_pattern = r'DAG\s*\(\s*[\'"]([^\'"]+)[\'"]'
+    for match in re.finditer(dag_pattern, content):
+        result["dags"].append({
+            "name": match.group(1),
+            "file": file_path
+        })
+    
+    # Find operators (tasks)
+    task_pattern = r'(\w+)\s*=\s*(\w+Operator)\s*\('
+    for match in re.finditer(task_pattern, content):
+        result["tasks"].append({
+            "name": match.group(1),
+            "type": match.group(2)
+        })
+    
+    # Find dependencies (>> operator)
+    dep_pattern = r'(\w+)\s*>>\s*(\w+)'
+    for match in re.finditer(dep_pattern, content):
+        result["dependencies"].append({
+            "from": match.group(1),
+            "to": match.group(2)
+        })
+    
+    return result
+
+def parse_dbt_schema(self, file_path: str) -> Dict[str, Any]:
+    """Parse dbt schema.yml file."""
+    import yaml
+    
+    result = {
+        "type": "dbt",
+        "models": [],
+        "sources": [],
+        "dependencies": []
+    }
+    
+    with open(file_path, 'r') as f:
+        data = yaml.safe_load(f)
+    
+    # Extract models
+    for model in data.get('models', []):
+        model_name = model.get('name')
+        result["models"].append({
+            "name": model_name,
+            "description": model.get('description', ''),
+            "columns": model.get('columns', [])
+        })
+        
+        # Look for ref() in description or tests
+        description = model.get('description', '')
+        import re
+        refs = re.findall(r"ref\(['\"]([^'\"]+)['\"]\)", description)
+        for ref in refs:
+            result["dependencies"].append({
+                "from": model_name,
+                "to": ref,
+                "type": "ref"
+            })
+    
+    # Extract sources
+    for source in data.get('sources', []):
+        source_name = source.get('name')
+        for table in source.get('tables', []):
+            result["sources"].append({
+                "name": f"{source_name}.{table.get('name')}",
+                "source": source_name
+            })
+    
+    return result
