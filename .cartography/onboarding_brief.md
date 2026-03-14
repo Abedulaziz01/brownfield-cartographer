@@ -1,7 +1,7 @@
 # Onboarding Brief: ol-data-platform
 
 *Welcome! Here's what you need to know on Day 1.*
-*Generated: 2026-03-14 22:02:30*
+*Generated: 2026-03-14 22:27:53*
 
 ---
 
@@ -54,15 +54,15 @@ These modules are the heart of the system. Learn them first:
 
 **Where data comes from:**
 - `source_sorted`
-- `source`
 - `Airbyte`
+- `source`
 - `most`
 - `a`
 
 **Where data goes:**
 - `source_sorted`
-- `source`
 - `Airbyte`
+- `source`
 - `most`
 - `a`
 
