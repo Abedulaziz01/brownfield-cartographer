@@ -1,6 +1,6 @@
 # ol-data-platform Codebase Intelligence
 
-*Generated on: 2026-03-13 16:09:48*
+*Generated on: 2026-03-14 22:02:30*
 *Analysis covers 1108 files*
 
 ---
@@ -61,18 +61,18 @@ These modules have the highest PageRank - changes here affect many other files:
 ## 📊 Data Flow
 
 **📥 Source Datasets** (where data enters)
-- `Airbyte`
 - `source_sorted`
-- `most`
 - `source`
+- `Airbyte`
+- `most`
 - `a`
   *...and 743 more*
 
 **📤 Sink Datasets** (final outputs)
-- `Airbyte`
 - `source_sorted`
-- `most`
 - `source`
+- `Airbyte`
+- `most`
 - `a`
   *...and 743 more*
 
