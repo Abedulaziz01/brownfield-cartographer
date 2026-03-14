@@ -132,3 +132,65 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # Add to cli.py
+
+def clone_github_repo(url: str, target_dir: str) -> str:
+    """Clone a GitHub repository."""
+    import subprocess
+    import tempfile
+    
+    # Create temp directory
+    repo_name = url.split('/')[-1].replace('.git', '')
+    clone_path = os.path.join(target_dir, repo_name)
+    
+    if os.path.exists(clone_path):
+        logger.info(f"Repository already exists at {clone_path}")
+        return clone_path
+    
+    # Clone the repo
+    logger.info(f"Cloning {url} to {clone_path}")
+    subprocess.run(['git', 'clone', url, clone_path], check=True)
+    
+    return clone_path
+
+def incremental_update(repo_path: str, cartography_dir: str) -> bool:
+    """Check if incremental update is needed and run it."""
+    from datetime import datetime
+    import subprocess
+    
+    # Check last analysis time
+    last_run_file = Path(cartography_dir) / "last_run.txt"
+    
+    if not last_run_file.exists():
+        logger.info("No previous run found, performing full analysis")
+        return False
+    
+    # Get last commit hash
+    result = subprocess.run(
+        ['git', 'rev-parse', 'HEAD'],
+        cwd=repo_path,
+        capture_output=True,
+        text=True
+    )
+    current_hash = result.stdout.strip()
+    
+    # Check if anything changed
+    result = subprocess.run(
+        ['git', 'diff', '--name-only', 'HEAD'],
+        cwd=repo_path,
+        capture_output=True,
+        text=True
+    )
+    changed_files = result.stdout.strip().split('\n')
+    
+    if not changed_files or changed_files == ['']:
+        logger.info("No changes detected since last run")
+        return True
+    
+    # Run incremental analysis on changed files
+    logger.info(f"Found {len(changed_files)} changed files, running incremental update")
+    
+    # Here you would run analysis on only changed files
+    # This requires modifying your agents to accept file lists
+    
+    return True

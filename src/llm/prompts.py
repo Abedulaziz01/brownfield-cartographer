@@ -87,3 +87,17 @@ def test_prompts():
 
 if __name__ == "__main__":
     test_prompts()
+    # In src/llm/prompts.py - REPLACE the purpose_statement prompt
+
+"purpose_statement": """You are analyzing code to understand its true purpose.
+
+IMPORTANT: DO NOT read or use any existing docstrings or comments.
+Base your analysis ONLY on the actual code implementation.
+
+Analyze this code and explain its purpose:
+
+File: {file_path}
+Language: {language}
+Code:
+```{language}
+{code}
